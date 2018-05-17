@@ -1,70 +1,27 @@
-{% if page.color %}
-  {% assign background = page.color %}
-{% elsif page.layout == 'blog' %}
-  <!-- blog index, inherit from first tag of first post -->
-  {% assign first_post = site.posts | first %}
-  {% assign post_tag_downcase = first_post.tags | first | downcase %}
-  {% for site_tag in site.blog_tags %}
-    {% assign site_tag_title = site_tag.title | downcase %}
-    {% if site_tag_title == post_tag_downcase %}
-      {% if site_tag.color %}
-        {% assign background = site_tag.color %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-{% elsif page.collection == 'posts' %}
-  <!-- blog permalink, inherit from first tag -->
-  {% assign post_tag_downcase = page.tags | first | downcase %}
-  {% for site_tag in site.blog_tags %}
-    {% assign site_tag_title = site_tag.title | downcase %}
-    {% if site_tag_title == post_tag_downcase %}
-      {% if site_tag.color %}
-        {% assign background = site_tag.color %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-{% endif %}
-<div class="headerWrap bg--{{ background | default: 'lightest-gray' }}">
-  <header class="header{% if page.extended_header %} header--extended{% endif %}">
-    <ul class="header__items">
-      {% for item in site.data.navigation.header %}
-      <li class="header__item">
-        <a href="{{ item.url }}" class="header__link">{{ item.title }}</a>
-      </li>
-      {% endfor %}
-      <li class="header__item">
-        <a href="https://manage.siteleaf.com/signup" class="header__link header__link--button">Sign up</a>
-      </li>
-      <li class="header__item header__item--mobile">
-        <a id="mobileNavOpen" class="header__link">Menu</a>
-      </li>
-    </ul>
-    <a href="/" class="header__home"><img src="{{ site.logo }}" class="header__logo" alt="{{ site.title }}" /></a>
-    <h1 class="header__title">{{ page.header_title | default: page.title }}</h1>
-    {% if page.subtitle %}<div class="header__subtitle">{{ page.subtitle | markdownify }}</div>{% endif %}
-    {% if page.header_button and page.url != '/' %}
-      <div class="header__buttonWrap">
-        <a href="{{ page.header_button.url }}" class="bg--{{ page.header_button.color | default: 'blue' }} header__button">{{ page.header_button.title }}</a>
-      </div>
-    {% endif %}
-  </header>
-  <nav class="mobileNav">
-    <header class="header">
-      <ul class="header__items">
-        <li class="header__item header__item--mobile">
-          <a id="mobileNavClose" class="header__link">Close</a>
-        </li>
-      </ul>
-      <ul class="mobileNav__items">
-        {% for item in site.data.navigation.header %}
-        <li class="mobileNav__item">
-          <a href="{{ item.url }}" class="mobileNav__link">{{ item.title }}</a>
-        </li>
+<header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        {% for my_page in site.pages %}
+          {% if my_page.title %}
+          <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
+          {% endif %}
         {% endfor %}
-        <li class="mobileNav__item">
-          <a href="https://manage.siteleaf.com/signup" class="mobileNav__link">Sign up</a>
-        </li>
-      </ul>
-    </header>
-  </nav>
-</div>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
