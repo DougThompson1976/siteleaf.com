@@ -9,5 +9,5 @@ Some of the largest and most expensive software mistakes - billions of dollars -
 Part of this is the design of Excel - lack of "guardrails", data and formula corruption, and insufficient data management (lack automated backups, transaction logs, and audit trails.
 
 
-All source code is free and Open Source (MIT License)
+All source code is free and Open Source
 https://github.com/DougThompson1976/Vine
